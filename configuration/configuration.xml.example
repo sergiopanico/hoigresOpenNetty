@@ -1,0 +1,154 @@
+<Configuration>
+
+  <!-- MQTT broker used to expose OpenNetty entities (from mqtt_info in impianto_scs.json) -->
+  <Mqtt Server="[homeassistantvmip]" Port="1883" Username="[mqttuser]" Password="[mqttpassword]" />
+
+  <!-- BTicino MyHOMEServer1 SCS/Ethernet gateway (from gateway_info in impianto_scs.json) -->
+  <Device Brand="BTicino" Model="MyHOMEServer1" MacAddress="[myhomeservermac]">
+    <Gateway Type="Tcp" Server="[myhomeserverip]" Password="[myhomeserverpassword]" />
+  </Device>
+
+  <!--
+    F523 1-gang DIN rail switches (energy_meters/lights/plant.appliances area).
+    Important: the endpoint MUST use unit 2, since unit 1 is reserved for the
+    energy load control feature, which is not supported by OpenNetty yet
+    (see kevinchalet/opennetty-core PR #157).
+  -->
+
+  <Device Brand="BTicino" Model="F523" Name="Asciugatrice">
+    <Unit Id="2">
+      <Endpoint Name="Asciugatrice" Area="7" Point="1" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F523" Name="Lavatrice">
+    <Unit Id="2">
+      <Endpoint Name="Lavatrice" Area="7" Point="2" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F523" Name="Lavastoviglie">
+    <Unit Id="2">
+      <Endpoint Name="Lavastoviglie" Area="7" Point="3" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F523" Name="Microonde">
+    <Unit Id="2">
+      <Endpoint Name="Microonde" Area="7" Point="4" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F523" Name="Forno">
+    <Unit Id="2">
+      <Endpoint Name="Forno" Area="7" Point="5" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F523" Name="Piano induzione">
+    <Unit Id="2">
+      <Endpoint Name="Piano induzione" Area="7" Point="6" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F523" Name="Frigorifero">
+    <Unit Id="2">
+      <Endpoint Name="Frigorifero" Area="7" Point="7" />
+    </Unit>
+  </Device>
+
+  <!-- F418U2 2-gang DIN rail dimmer switches -->
+
+  <Device Brand="BTicino" Model="F418U2" Name="Luce Bagno">
+    <Unit Id="1">
+      <Endpoint Name="Luce Bagno" Area="0" Point="1" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F418U2" Name="Luce Disimpegno">
+    <Unit Id="1">
+      <Endpoint Name="Luce Disimpegno" Area="0" Point="2" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F418U2" Name="Luce Isola">
+    <Unit Id="1">
+      <Endpoint Name="Luce Isola" Area="0" Point="3" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F418U2" Name="Luce Soggiorno">
+    <Unit Id="1">
+      <Endpoint Name="Luce Soggiorno" Area="0" Point="4" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F418U2" Name="Luce Letto">
+    <Unit Id="1">
+      <Endpoint Name="Luce Letto" Area="0" Point="5" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F418U2" Name="Luce Studio">
+    <Unit Id="1">
+      <Endpoint Name="Luce Studio" Area="0" Point="7" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F418U2" Name="Luce Camera">
+    <Unit Id="1">
+      <Endpoint Name="Luce Camera" Area="0" Point="8" />
+    </Unit>
+  </Device>
+
+  <!-- F411U1 1-gang DIN rail switches (impianto_scs.json used the generic "F411" model name) -->
+
+  <Device Brand="BTicino" Model="F411U1" Name="Luce Salotto">
+    <Unit Id="1">
+      <Endpoint Name="Luce Salotto" Area="0" Point="9" />
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F411U1" Name="Luce Ingresso">
+    <Unit Id="1">
+      <Endpoint Name="Luce Ingresso" Area="0" Point="10" />
+    </Unit>
+  </Device>
+
+  <!--
+    F411/4 4-gang DIN rail switches: unit 1 supports the "Configurable function
+    type" capability, so the function type must be set explicitly depending on
+    whether the output drives a light or a shutter actuator.
+  -->
+
+  <Device Brand="BTicino" Model="F411/4" Name="Luce Bagnetto">
+    <Unit Id="1">
+      <Endpoint Name="Luce Bagnetto" Area="0" Point="13">
+        <Setting Name="Function type" Value="Light actuator" />
+      </Endpoint>
+    </Unit>
+  </Device>
+
+  <Device Brand="BTicino" Model="F411/4" Name="Luce Esterno">
+    <Unit Id="1">
+      <Endpoint Name="Luce Esterno" Area="0" Point="14">
+        <Setting Name="Function type" Value="Light actuator" />
+      </Endpoint>
+    </Unit>
+  </Device>
+
+  <!--
+    Note: impianto_scs.json defines a "1m" travel timer for "Tenda Esterno", but
+    the F411/4 only exposes basic shutter control/state (no configurable travel
+    time), so this setting has no OpenNetty equivalent and was omitted.
+  -->
+
+  <Device Brand="BTicino" Model="F411/4" Name="Tenda Esterno">
+    <Unit Id="1">
+      <Endpoint Name="Tenda Esterno" Area="0" Point="12">
+        <Setting Name="Function type" Value="Automation actuator" />
+      </Endpoint>
+    </Unit>
+  </Device>
+
+</Configuration>

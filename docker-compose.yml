@@ -1,0 +1,9 @@
+services:
+  opennetty:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: opennetty-daemon
+    restart: unless-stopped
+    volumes:
+      - ./configuration/configuration.xml:/usr/local/bin/opennetty/configuration.xml:ro
