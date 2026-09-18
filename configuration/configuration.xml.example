@@ -16,8 +16,15 @@
   -->
 
   <Device Brand="BTicino" Model="F523" Name="Asciugatrice">
+    <Setting Name="Home Assistant device name" Value="[name of the device]" />
+    <Setting Name="Home Assistant suggested area" Value="[area of the device]" />
+
     <Unit Id="2">
       <Endpoint Name="Asciugatrice" Area="7" Point="1" />
+      <Setting Name="Function type" Value="Light actuator" />
+      
+      <Setting Name="Home Assistant light icon" Value="mdi:lightbulb-fluorescent-tube" />
+      <Setting Name="Home Assistant light name" Value="[name of the light entity]" />
     </Unit>
   </Device>
 
